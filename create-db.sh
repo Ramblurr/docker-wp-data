@@ -13,6 +13,13 @@ DB_HOST=${DB_PORT_3306_TCP_ADDR:-${DB_HOST}}
 DB_HOST=${DB_1_PORT_3306_TCP_ADDR:-${DB_HOST}}
 DB_PORT=${DB_PORT_3306_TCP_PORT:-${DB_PORT}}
 DB_PORT=${DB_1_PORT_3306_TCP_PORT:-${DB_PORT}}
+MYSQL_USER=${SQLDATA_ENV_MYSQL_USER:-${DB_ADMIN_USER}}
+MYSQL_PASS=${SQLDATA_ENV_MYSQL_PASS:-${DB_ADMIN_PASS}}
+
+if [[ -z "$MYSQL_USER" ]] || [[ -z "$MYSQL_PASS" ]]; then
+    echo "SQLDATA_ENV_MYSQL_USER and _PASS nor DB_ADMIN_USER _PASS are set. Aborting."
+    exit 1;
+fi
 
 echo "========================================="
 echo "Creating Database & User"

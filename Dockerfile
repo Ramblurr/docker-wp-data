@@ -12,8 +12,6 @@ RUN chmod 755 /*.sh
 # Expose environment variables
 ENV DB_HOST **LinkMe**
 ENV DB_PORT **LinkMe**
-ENV DB_ADMIN_USER admin
-ENV DB_ADMIN_PASS **ChangeMe**
 ENV DATA_DB_USER **ChangeMe**
 ENV DATA_DB_PASS **ChangeMe**
 ENV DATA_DB_NAME **ChangeMe**
