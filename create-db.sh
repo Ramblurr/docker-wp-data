@@ -35,12 +35,17 @@ echo "DATA_DB_PASS: $DATA_DB_PASS"
 echo "DATA_DB_NAME: $DATA_DB_NAME"
 echo "========================================="
 
-for ((i=0;i<10;i++))
-do
+LOOP_LIMIT=13
+for (( i=0 ; ; i++ )); do
+    if [ ${i} -eq ${LOOP_LIMIT} ]; then
+        echo "MySQL Connection Time out."
+        exit 1
+    fi
     DB_CONNECTABLE=$(mysql -u$MYSQL_USER -p$MYSQL_PASS -h$DB_HOST -P$DB_PORT -e 'status' >/dev/null 2>&1; echo "$?")
     if [[ DB_CONNECTABLE -eq 0 ]]; then
         break
     fi
+    echo "=> Waiting for MySQL connection, trying ${i}/${LOOP_LIMIT} ..."
     sleep 5
 done
 
